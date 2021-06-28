@@ -112,7 +112,7 @@ namespace WebNotifier.Controllers
     }
 }
 ```
-Probably, you will need to subscribe some events to perform some tasks before or after notifications are sent. To achieve this, *Desyco.Notification* provides an EventHub service that makes it possible.
+You probably will need to subscribe some events to perform some tasks before or after notifications are sent. To achieve this, *Desyco.Notification* provides an EventHub service that makes it possible.
 
 ```c#
 services.AddNotification(opt =>
