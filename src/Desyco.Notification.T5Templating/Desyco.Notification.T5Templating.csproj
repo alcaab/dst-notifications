@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Desyco.Notification.T5Templating</AssemblyName>
+    <RootNamespace>Desyco.Notification.T5Templating</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Desyco.Notification\Desyco.Notification.csproj" />
+    <ProjectReference Include="..\Desyco.T5Templating\Desyco.T5Templating.csproj" />
+  </ItemGroup>
+
+
+
+</Project>

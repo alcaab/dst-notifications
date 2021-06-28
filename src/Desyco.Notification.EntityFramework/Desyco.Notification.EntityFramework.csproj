@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Desyco.Notification.EntityFramework</AssemblyName>
+    <RootNamespace>Desyco.Notification.EntityFramework</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Extentions\**" />
+    <EmbeddedResource Remove="Extentions\**" />
+    <None Remove="Extentions\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.0.0" />
+    <PackageReference Include="AutoMapper.Collection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.8" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.8" />
+    <PackageReference Include="Portable.BouncyCastle" Version="1.8.6.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Desyco.Notification\Desyco.Notification.csproj" />
+  </ItemGroup>
+  
+</Project>

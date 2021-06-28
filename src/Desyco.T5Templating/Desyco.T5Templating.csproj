@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>Desyco.T5Templating es una implementación de código abierto del motor de plantillas de texto T4 para .NET basado en Mono.TextTemplating, adaptada para permitir una completa integración con la librería Desyco.Notification.</Description>
+    <Copyright></Copyright>
+    <PackageLicenseFile></PackageLicenseFile>
+    <Company>Desyco Logical Solutions SRL.</Company>
+    <Authors>Desyco</Authors>
+    <PackageTags>desyconotificacionservice</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <NeutralLanguage>es-DO</NeutralLanguage>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>Key.pfx</AssemblyOriginatorKeyFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <Version>1.0.2</Version>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <FileVersion>1.0.2.0</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="3.8.0" />
+    <PackageReference Include="System.CodeDom" Version="5.0.0" />
+  </ItemGroup>
+
+</Project>

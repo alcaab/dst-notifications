@@ -1,0 +1,12 @@
+﻿<#@ assembly name="WebNotifier.dll" #>
+<#@ import namespace="WebNotifier" #>
+<#@ parameter type="RequestFormModel" name="form" #>
+
+Hi <#=form.FirstName#>,
+
+We assigned your request. We will be working on your request of <#=form.ServiceDescription#>
+
+Agent: <#=form.Agent#>
+
+
+
