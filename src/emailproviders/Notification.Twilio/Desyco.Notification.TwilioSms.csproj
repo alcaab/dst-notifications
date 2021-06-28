@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Desyco.Notification.Twilio</AssemblyName>
+    <RootNamespace>Desyco.Notification.Twilio</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <PackageId>Desyco.Notification.TwilioSms</PackageId>
+    <Authors>Desyco.Notification.TwilioSms</Authors>
+    <Company>Desyco.Notification.TwilioSms</Company>
+    <Product>Desyco.Notification.TwilioSms</Product>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Notification\Desyco.Notification.csproj" />
+  </ItemGroup>
+
+</Project>
