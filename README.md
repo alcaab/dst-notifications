@@ -148,3 +148,5 @@ services.AddNotification(opt =>
 
 });
 ```
+
+See [WebNotifier](https://github.com/alcaab/dst-notifications/tree/main/src/samples/WebNotifier) Sample to know more about configuration and usage.
