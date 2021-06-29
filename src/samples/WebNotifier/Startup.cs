@@ -111,8 +111,8 @@ namespace WebNotifier
                     Title = "Notificator API"
                 });
 
-                var xmlPath = Path.Combine(Directory.GetCurrentDirectory(), "swagger-comments.xml");
-                c.IncludeXmlComments(xmlPath);
+                //var xmlPath = Path.Combine(Directory.GetCurrentDirectory(), "swagger-comments.xml");
+                //c.IncludeXmlComments(xmlPath);
             });
 
             services.AddControllers();

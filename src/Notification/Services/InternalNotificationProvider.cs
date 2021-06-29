@@ -46,8 +46,8 @@ namespace Desyco.Notification
 
                 msg.NotificationMethod = NotificationMethod.Internal;
 
-                if (!string.IsNullOrEmpty(to.Content))
-                    msg.Body = to.Content;
+                if (!string.IsNullOrEmpty(to.Body))
+                    msg.Body = to.Body;
 
                 if (!string.IsNullOrEmpty(to.TemplateKey))
                     msg.TemplateKey = to.TemplateKey;

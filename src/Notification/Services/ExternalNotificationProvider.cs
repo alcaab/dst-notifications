@@ -48,17 +48,15 @@ namespace Desyco.Notification
             {
                 if (!string.IsNullOrEmpty(msg.TemplateKey) && string.IsNullOrEmpty(msg.Body))
                 {
-
                     try
                     {
                         await _templateContent.CreateMessageBody(msg);
                     }
-                    catch (Exception)
+                    catch 
                     {
                         msg.DeliveryAttempts = _options.MaxDeliveryAttempts;
                         throw;
                     }
-
                 }
 
                 await _eventHub.Emit(new MessageSending

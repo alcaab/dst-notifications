@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Desyco.Notification.Services;
+using Desyco.Notification.Services.Default;
 using Desyco.Notification.Templating;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -12,12 +14,12 @@ namespace Desyco.Notification
     {
         internal Func<IServiceProvider, INotificationEventHub> EventHubFactory;
         internal Func<IServiceProvider, IExternalNotificationProvider> ExternalNotificationFactory;
-
         internal Func<IServiceProvider, IStorageProvider> StorageFactory;
         internal Func<IServiceProvider, ITemplateCompilerService> TemplateCompilerProvider;
         internal Func<IServiceProvider, ITemplateEngine> TemplateEngineProvider;
         internal Func<IServiceProvider, ITemplateContentProvider> TemplateContentFactory;
         internal Func<IServiceProvider, IInternalNotificationProvider> WebSocketNotificationFactory;
+        internal Func<IServiceProvider, IDeliveryStrategy> DeliveryStrategy; 
 
         public NotificationOptions(IServiceCollection services) 
         {
@@ -44,6 +46,7 @@ namespace Desyco.Notification
                 sp.GetService<ITemplateContentProvider>(),
                 sp.GetService<ILoggerFactory>());
 
+            DeliveryStrategy = sp => new DefaultDeliveryStrategy(sp.GetService<NotificationOptions>());
             EventHubFactory = sp => new NotificationEventHub();
             Events = new NotificationEvents();
             ProviderOptions = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
@@ -120,6 +123,12 @@ namespace Desyco.Notification
 
             return (T)ProviderOptions[providerType];
 
+        }
+
+
+        public void UseDeliveryStrategy(Func<IServiceProvider, IDeliveryStrategy> deliveryStrategy)
+        {
+            DeliveryStrategy = deliveryStrategy;
         }
 
         //public void UseAppSettingsOptions(string seccionKey = "")

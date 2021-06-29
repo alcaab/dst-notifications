@@ -6,7 +6,6 @@ namespace Desyco.Notification
 
     public class NotificationDeliveryError
     {
-
         public NotificationDeliveryError() 
         {
             ErrorTime = DateTime.UtcNow;

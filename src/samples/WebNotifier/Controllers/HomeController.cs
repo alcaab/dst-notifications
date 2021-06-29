@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Desyco.Notification;
+using Desyco.Notification.Models;
 using Microsoft.AspNetCore.Mvc;
 using WebNotifier.Service;
 
@@ -81,6 +82,43 @@ namespace WebNotifier.Controllers
 
 
             return message.Group;
+        }
+
+
+        private NotificationMessage ComplexMessage()
+        {
+            //UseNotificationMerge
+
+            var notificationSubjects = new List<NotificationSubject>
+            {
+                new ("Request Assignment")
+                {
+                    PersonalizedEachRecipient = true,
+                    NotificationMethod = NotificationMethod.External,
+                    TemplateKey = "submited-template.t5",
+                    Recipients = new List<NotificationAddress>
+                    {
+                        new ("alcaab@gmail.com", "Alexis Castro"),
+                        new ("a.castro@mopc.gob.do", "Alexis Castro")
+                    }
+                }
+            };
+
+            var msg = new NotificationMessage();
+
+            msg.To.AddRange(new List<NotificationAddress>
+            {
+                new()
+                {
+                    Address = "alcaab@gmail.com",
+                    DisplayName = "Alexis Castro Abreu",
+                    //TemplateKey = "submited-template.t5"
+                }
+            });
+
+
+            return msg;
+
         }
 
     }
