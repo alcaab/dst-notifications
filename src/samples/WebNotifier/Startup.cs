@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 using Desyco.Notification;
 using Microsoft.AspNetCore.Builder;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using WebNotifier.Service;
 
 
@@ -101,7 +103,17 @@ namespace WebNotifier
 
             services.AddSingleton<IRequestFormService, RequestFormService>();
 
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Notificator API"
+                });
+
+                var xmlPath = Path.Combine(Directory.GetCurrentDirectory(), "swagger-comments.xml");
+                c.IncludeXmlComments(xmlPath);
+            });
 
             services.AddControllers();
         }

@@ -17,7 +17,6 @@ namespace Desyco.Notification.Templating
 
         public Dictionary<string, CompiledTemplateResult> CompiledTemplates { get; }
 
-
         public string Compile(CompilerOptions options)
         {
             return Compile(options.TemplateKey, options.Content, options.Version, options.Data);
@@ -48,7 +47,6 @@ namespace Desyco.Notification.Templating
             CompiledTemplates.Clear();
             return Task.CompletedTask;
         }
-
 
         public virtual string Process(CompiledTemplateResult result, Dictionary<string, object> data)
         {

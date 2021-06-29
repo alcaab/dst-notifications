@@ -47,7 +47,7 @@ namespace Desyco.Notification
         }
 
         //public Task<NotiticationServerOptions> GetServerOptions(string id = null) => _storageProvider.GetServerOptions(id);
-
         //public Task<string> GetTemplate(string templateKey) => _storageProvider.GetTemplate(templateKey);
+
     }
 }

@@ -22,10 +22,7 @@ namespace Desyco.Notification
         public NotificationOptions(IServiceCollection services) 
         {
             Services = services;
-    //    }
-    //public NotificationOptions()
-    //{
-        //ServiceId = Guid.NewGuid().ToString();
+
             //templating settings
             TemplateEngineProvider = sp => new DefaultTemplateEngine();
             TemplateCompilerProvider = sp => new DefaultTemplateCompilerService(sp.GetService<ITemplateEngine>());
