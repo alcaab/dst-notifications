@@ -41,9 +41,9 @@ namespace WebNotifier.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> AssingRequest(string id)
         {
-             var model = _requestFormService.AssignAgent(id);
+            var model = _requestFormService.AssignAgent(id);
 
-             return Ok(await SendNotification(model));
+            return Ok(await SendNotification(model));
         }
 
         [HttpPost("[action]")]
@@ -96,7 +96,7 @@ namespace WebNotifier.Controllers
                     PersonalizedEachRecipient = true,
                     NotificationMethod = NotificationMethod.External,
                     TemplateKey = "submited-template.t5",
-                    Recipients = new List<NotificationAddress>
+                    Recipients = new List<RecipientInfo>
                     {
                         new ("alcaab@gmail.com", "Alexis Castro"),
                         new ("a.castro@mopc.gob.do", "Alexis Castro")
@@ -104,17 +104,41 @@ namespace WebNotifier.Controllers
                 }
             };
 
-            var msg = new NotificationMessage();
-
-            msg.To.AddRange(new List<NotificationAddress>
+            var msg = new NotificationMessage
             {
-                new()
+                Subjects = new List<NotificationSubject>
                 {
-                    Address = "alcaab@gmail.com",
-                    DisplayName = "Alexis Castro Abreu",
-                    //TemplateKey = "submited-template.t5"
+                    new("Request Received")
+                    {
+                        PersonalizedEachRecipient = true,
+                        TemplateKey = "submited-template.t5",
+                        Recipients = new List<RecipientInfo>
+                        {
+                            new("alcaab@gmail.com", "Alexis Castro", NotificationMethod.External),
+                            new("a.castro@mopc.gob.do", "Alexander Castro",NotificationMethod.InternalAndExternal)
+                        }
+                    },
+                    new("Request Assignment")
+                    {
+                        NotificationMethod = NotificationMethod.External,
+                        TemplateKey = "assigned-template.t5",
+                        Recipients = new List<RecipientInfo>
+                        {
+                            new("supervisor@gmail.com", "Axel Vasquez"),
+                        }
+                    }
                 }
-            });
+            };
+
+            //msg.To.AddRange(new List<NotificationAddress>
+            //{
+            //    new()
+            //    {
+            //        Address = "alcaab@gmail.com",
+            //        DisplayName = "Alexis Castro Abreu",
+            //        //TemplateKey = "submited-template.t5"
+            //    }
+            //});
 
 
             return msg;

@@ -6,6 +6,6 @@ namespace Desyco.Notification.Services
 {
     public interface IDeliveryStrategy
     {
-        List<NotificationSubject> GetSubjects(NotificationMessage message);  
+        NotificationContainer GetNotifications(PlainMessage message);     
     }
 }

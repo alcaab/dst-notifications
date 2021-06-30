@@ -1,4 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Desyco.Notification.Models;
 using Newtonsoft.Json;
 
 namespace Desyco.Notification.Extensions
@@ -6,7 +10,7 @@ namespace Desyco.Notification.Extensions
     public static class Extensions
     {
 
-        public static async Task CreateMessageBody(this ITemplateContentProvider  source, NotificationMessage m)
+        public static async Task CreateMessageBody(this ITemplateContentProvider source, NotificationMessage m)
         {
             /*
              * Serialization is causing an issue because property Data which is a Dictionary<string,object> object
@@ -27,6 +31,49 @@ namespace Desyco.Notification.Extensions
             });
 
             return JsonConvert.DeserializeObject<T>(data);
+
+        }
+
+        /// <summary>
+        /// Deep clone notifications into container
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="container"></param>
+        public static void CopyTo(this PlainMessage message, NotificationContainer container)
+        {
+            foreach (var subject in message.Subjects)
+            {
+                foreach (var recipient in subject.Recipients)
+                {
+                    var notification = new NotificationBase
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Group = message.Group,
+                        Status = MessageStatus.Pending,
+                        Recipient = new RecipientInfo
+                        {
+                            //Todo:Inherit method logic here
+                            NotificationMethod = recipient.NotificationMethod,
+                            Address = recipient.Address,
+                            Name = recipient.Name,
+                            UserName = recipient.UserName
+                        },
+                        //Todo:Inherit method logic here
+                        NotificationMethod = subject.NotificationMethod,
+                        TemplateKey = subject.TemplateKey,
+                        CreatedDate = DateTime.UtcNow,
+                        Subject = subject.Subject,
+                        //Todo: body logic here
+                        Body = subject.Body,
+                        DeliveryAttempts = 0,
+                        UrgencyLevel = UrgencyLevel.Normal,
+                    };
+
+                    container.AddNotification(notification);
+                }
+
+            }
+
 
         }
     }

@@ -38,7 +38,7 @@ namespace Desyco.Notification.Models
         public string Subject { get; set; }
         public string TemplateKey { get; set; }
         public string Body { get; set; }
-        public NotificationMethod NotificationMethod { get; set; }
+        public NotificationMethod NotificationMethod { get; set; } = NotificationMethod.Inherited;
         public List<RecipientInfo> Recipients { get; set; } = new List<RecipientInfo>();
 
     }

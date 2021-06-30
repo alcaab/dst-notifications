@@ -48,9 +48,9 @@ namespace Desyco.Notification
 
                 if (!string.IsNullOrEmpty(to.Body))
                     msg.Body = to.Body;
-
-                if (!string.IsNullOrEmpty(to.TemplateKey))
-                    msg.TemplateKey = to.TemplateKey;
+                //Todo:Check
+                //if (!string.IsNullOrEmpty(to.TemplateKey))
+                //    msg.TemplateKey = to.TemplateKey;
 
                 yield return msg;
 

@@ -14,9 +14,17 @@ namespace Desyco.Notification.Services.Default
             _options = options;
         }
 
-        public List<NotificationSubject> GetSubjects(NotificationMessage message)
+        public NotificationContainer GetNotifications(PlainMessage message)
         {
-            return new List<NotificationSubject>();
+            var notifications = new NotificationContainer();
+
+            message.Subjects.ForEach(subject =>
+            {
+                
+            });
+
+
+            return notifications;
         }
     }
 }
