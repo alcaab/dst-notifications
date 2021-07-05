@@ -28,13 +28,16 @@ namespace Desyco.Notification
 
     public class NotificationContainer : Dictionary<NotificationMethod, List<NotificationBase>> 
     {
-        internal void AddNotification(NotificationBase @base)
+        internal void AddNotification(NotificationBase notification) 
         {
-            if (!ContainsKey(@base.NotificationMethod))
-                Add(@base.NotificationMethod, new List<NotificationBase>());
+            if (!ContainsKey(notification.NotificationMethod))
+                Add(notification.NotificationMethod, new List<NotificationBase>());
 
-            this[@base.NotificationMethod].Add(@base);
+            this[notification.NotificationMethod].Add(notification);
         }
+
+        internal List<NotificationBase> GetNotifications(NotificationMethod method) =>
+            this[method] ?? new List<NotificationBase>();
     }
 
 

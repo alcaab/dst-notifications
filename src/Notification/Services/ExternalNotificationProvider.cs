@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Desyco.Notification.Extensions;
 
@@ -11,6 +12,7 @@ namespace Desyco.Notification
         private readonly INotificationEventHub _eventHub;
         private readonly NotificationOptions _options;
         private readonly ITemplateContentProvider _templateContent;
+        private IExternalNotificationProvider _externalNotificationProviderImplementation;
 
         protected ExternalNotificationProvider(
             IStorageProvider storageProvider,
@@ -92,6 +94,11 @@ namespace Desyco.Notification
 
             await _storageProvider.AddOrUpdateAsync(msg);
 
+        }
+
+        public Task Notify(List<NotificationBase> notifications)
+        {
+            return  Task.CompletedTask;
         }
 
         protected abstract Task SendNotificationAsync(NotificationMessage m);

@@ -41,40 +41,33 @@ namespace Desyco.Notification.Extensions
         /// <param name="container"></param>
         public static void CopyTo(this PlainMessage message, NotificationContainer container)
         {
-            foreach (var subject in message.Subjects)
+
+            foreach (var notification in from subject in message.Subjects from recipient in subject.Recipients select new NotificationBase
             {
-                foreach (var recipient in subject.Recipients)
+                Id = Guid.NewGuid().ToString(),
+                Group = message.Group,
+                Status = MessageStatus.Pending,
+                Recipient = new RecipientInfo
                 {
-                    var notification = new NotificationBase
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        Group = message.Group,
-                        Status = MessageStatus.Pending,
-                        Recipient = new RecipientInfo
-                        {
-                            //Todo:Inherit method logic here
-                            NotificationMethod = recipient.NotificationMethod,
-                            Address = recipient.Address,
-                            Name = recipient.Name,
-                            UserName = recipient.UserName
-                        },
-                        //Todo:Inherit method logic here
-                        NotificationMethod = subject.NotificationMethod,
-                        TemplateKey = subject.TemplateKey,
-                        CreatedDate = DateTime.UtcNow,
-                        Subject = subject.Subject,
-                        //Todo: body logic here
-                        Body = subject.Body,
-                        DeliveryAttempts = 0,
-                        UrgencyLevel = UrgencyLevel.Normal,
-                    };
-
-                    container.AddNotification(notification);
-                }
-
+                    //Todo:Inherit method logic here
+                    NotificationMethod = recipient.NotificationMethod,
+                    Address = recipient.Address,
+                    Name = recipient.Name,
+                    UserName = recipient.UserName
+                },
+                //Todo:Inherit method logic here
+                NotificationMethod = subject.NotificationMethod,
+                TemplateKey = subject.TemplateKey,
+                CreatedDate = DateTime.UtcNow,
+                Subject = subject.Subject,
+                //Todo: body logic here
+                Body = subject.Body,
+                DeliveryAttempts = 0,
+                UrgencyLevel = UrgencyLevel.Normal,
+            })
+            {
+                container.AddNotification(notification);
             }
-
-
         }
     }
 }

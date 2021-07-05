@@ -12,7 +12,6 @@ namespace Desyco.Notification
         {
             Id = Guid.NewGuid().ToString();
             CreatedDate = DateTime.UtcNow;
-
         }
 
         public string Id { get; set; }

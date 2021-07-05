@@ -115,7 +115,7 @@ namespace WebNotifier.Controllers
                         Recipients = new List<RecipientInfo>
                         {
                             new("alcaab@gmail.com", "Alexis Castro", NotificationMethod.External),
-                            new("a.castro@mopc.gob.do", "Alexander Castro",NotificationMethod.InternalAndExternal)
+                            new("a.castro@mopc.gob.do", "Alexander Castro", NotificationMethod.InternalAndExternal)
                         }
                     },
                     new("Request Assignment")

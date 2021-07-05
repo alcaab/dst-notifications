@@ -128,6 +128,13 @@ namespace Desyco.Notification
 
         }
 
+        public Task Notify(List<NotificationBase> notificacions)
+        {
+            //throw new NotImplementedException();
+
+            return  Task.CompletedTask;
+        }
+
         protected abstract Task SendNotification(NotificationMessage m);
 
 

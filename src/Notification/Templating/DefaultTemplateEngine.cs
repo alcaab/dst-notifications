@@ -3,14 +3,12 @@
 namespace Desyco.Notification.Templating
 {
 
-
     public interface ICompiledTemplateRef
     {
         string Content { get; set; }
         object TextTransformation { get; }
         string Process();
     }
-
 
     public class CompiledTemplateRef : ICompiledTemplateRef
     {
@@ -22,7 +20,6 @@ namespace Desyco.Notification.Templating
             return Content;
         }
     }
-
 
     public class DefaultTemplateEngine : ITemplateEngine
     {

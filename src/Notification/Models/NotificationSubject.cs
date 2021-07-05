@@ -5,7 +5,6 @@ using System.Text;
 namespace Desyco.Notification.Models
 {
 
-
     /// <summary>
     /// One message can contains many recipients all related to the same notification.
     /// for example when customer submit a service request one notification is sent to him

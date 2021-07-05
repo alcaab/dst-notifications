@@ -1,8 +1,4 @@
-﻿
-using System.Collections.Generic;
-using Desyco.Notification.Models;
-
-namespace Desyco.Notification.Services
+﻿namespace Desyco.Notification.Services
 {
     public interface IDeliveryStrategy
     {

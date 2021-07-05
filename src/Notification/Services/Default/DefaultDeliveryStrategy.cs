@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Desyco.Notification.Extensions;
 using Desyco.Notification.Models;
 
 namespace Desyco.Notification.Services.Default
@@ -18,9 +19,10 @@ namespace Desyco.Notification.Services.Default
         {
             var notifications = new NotificationContainer();
 
+            message.CopyTo(notifications);
+
             message.Subjects.ForEach(subject =>
             {
-                
             });
 
 
