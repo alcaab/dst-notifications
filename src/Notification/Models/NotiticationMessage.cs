@@ -25,7 +25,7 @@ namespace Desyco.Notification
         public List<NotificationAddress> Cc { get; set; } = new List<NotificationAddress>();
         public List<NotificationAddress> Bcc { get; set; } = new List<NotificationAddress>();
         public List<NotificationAddress> ResentCc { get; set; } = new List<NotificationAddress>();
-        public Dictionary<string, object> Data { get; set; } = new Dictionary<string, object>();
+        //public Dictionary<string, object> Data { get; set; } = new Dictionary<string, object>();
         
         public ExternalTextFormat TextFormat { get; set; }
         public List<NotificationAttachment> Attachments { get; set; } = new List<NotificationAttachment>();

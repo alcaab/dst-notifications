@@ -55,14 +55,15 @@ namespace Desyco.Notification
 
                 //envia la notificacion por websocket
                 if (m.NotificationMethod != NotificationMethod.External)
-                    await _internalNotificationProvider.Notify(m);
+                    await _internalNotificationProvider.Notify(container.GetNotifications(NotificationMethod.External));
+
+                //await _internalNotificationProvider.Notify(m);
 
                 //Enviar mensaje fuera del sistema via email o cualquier otro medio. 
                 if (m.NotificationMethod != NotificationMethod.Internal)
-                {
-                    await _externalNotificationProvider.Notify(container.GetNotifications(NotificationMethod.External));
+                    await _externalNotificationProvider.Notify(container.GetNotifications(NotificationMethod.Internal));
+
                     //await _externalNotificationProvider.Notify(m);
-                }
                     
 
             }

@@ -12,7 +12,7 @@ namespace Desyco.Notification
         private readonly INotificationEventHub _eventHub;
         private readonly NotificationOptions _options;
         private readonly ITemplateContentProvider _templateContent;
-        private IExternalNotificationProvider _externalNotificationProviderImplementation;
+
 
         protected ExternalNotificationProvider(
             IStorageProvider storageProvider,
@@ -96,9 +96,62 @@ namespace Desyco.Notification
 
         }
 
-        public Task Notify(List<NotificationBase> notifications)
+
+
+        public async  Task Notify(List<NotificationBase> notifications)
         {
-            return  Task.CompletedTask;
+            //
+            await _eventHub.Emit(new MessageSending
+            {
+                Messages = notifications
+            });
+
+            foreach (var msg in notifications)
+            {
+                try
+                {
+
+                    //if (!string.IsNullOrEmpty(msg.TemplateKey) && string.IsNullOrEmpty(msg.Body))
+                    //{
+                    //    try
+                    //    {
+                    //        //await _templateContent.CreateMessageBody(msg);
+                    //    }
+                    //    catch
+                    //    {
+                    //        msg.DeliveryAttempts = _options.MaxDeliveryAttempts;
+                    //        throw;
+                    //    }
+                    //}
+
+                    //await SendNotificationAsync(msg);
+
+                    //msg.DeliveryDate = DateTime.UtcNow;
+                    //msg.Status = MessageStatus.Delivered;
+
+                    //await _eventHub.Emit(new MessageDelivered
+                    //{
+                    //    Message = msg
+                    //});
+
+                }
+                catch (Exception e)
+                {
+                    //msg.Status = MessageStatus.Error;
+                    //msg.Errors.Add(new NotificationDeliveryError
+                    //{
+                    //    Message = e.Message,
+                    //    DeliveryAttempts = msg.Errors.Count + 1,
+                    //    MessageId = msg.Id
+                    //});
+                    //await _eventHub.Emit(new MessageFailed
+                    //{
+                    //    Message = msg
+                    //});
+                }
+            }
+
+            //return  Task.CompletedTask;
         }
 
         protected abstract Task SendNotificationAsync(NotificationMessage m);

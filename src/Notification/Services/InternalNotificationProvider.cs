@@ -29,13 +29,11 @@ namespace Desyco.Notification
         public Dictionary<string, string> Connections { get; }
 
 
-
         protected IEnumerable<NotificationMessage> GetInternalNotifications(NotificationMessage m)
         {
 
             foreach (var to in m.To)
             {
-
                 var msg = m.JsonClone();
 
                 if (string.IsNullOrEmpty(msg.Id))

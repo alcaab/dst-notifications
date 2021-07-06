@@ -6,7 +6,7 @@ using Desyco.Notification.Models;
 
 namespace Desyco.Notification.Services.Default
 {
-    public class DefaultDeliveryStrategy: IDeliveryStrategy
+    public class DefaultDeliveryStrategy : IDeliveryStrategy
     {
         private readonly NotificationOptions _options;
 
@@ -15,18 +15,18 @@ namespace Desyco.Notification.Services.Default
             _options = options;
         }
 
-        public NotificationContainer GetNotifications(PlainMessage message)
+        public MessageContainer GetNotifications(PlainMessage message)
         {
-            var notifications = new NotificationContainer();
 
-            message.CopyTo(notifications);
-
-            message.Subjects.ForEach(subject =>
+            return message.CreateContainer(msg =>
             {
+                if (string.IsNullOrEmpty(msg.Id))
+                    msg.Id = Guid.NewGuid().ToString();
+
+                msg.DeliveryAttempts++;
+                msg.Status = MessageStatus.Pending;
             });
 
-
-            return notifications;
         }
     }
 }

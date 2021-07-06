@@ -2,6 +2,6 @@
 {
     public interface IDeliveryStrategy
     {
-        NotificationContainer GetNotifications(PlainMessage message);     
+        MessageContainer GetNotifications(PlainMessage message);     
     }
 }

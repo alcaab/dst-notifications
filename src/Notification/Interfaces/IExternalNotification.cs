@@ -7,9 +7,8 @@ namespace Desyco.Notification
 {
     public interface IExternalNotificationProvider 
     {
-        [Obsolete()]
+        [Obsolete]
         Task Notify(NotificationMessage m);
-
         Task Notify(List<NotificationBase> notifications);
 
     }

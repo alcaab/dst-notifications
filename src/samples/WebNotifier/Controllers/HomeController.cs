@@ -53,6 +53,16 @@ namespace WebNotifier.Controllers
         }
 
 
+        [HttpPost("[action]")]
+        public async Task<IActionResult> SubjectedNorification()
+        {
+            var model = SubjectedNotification();
+            await _notificationHost.Notify(model);
+
+            return Ok(model.Group);
+        }
+
+
         private async Task<string> SendNotification(RequestFormModel model)
         {
 
@@ -62,7 +72,8 @@ namespace WebNotifier.Controllers
             {
                 NotificationMethod = NotificationMethod.External,
                 Subject = $"Service Request - {subjectDescription}",
-                To = new List<NotificationAddress>() { new NotificationAddress(model.Email, $"{model.FirstName} {model.LastName}") },
+                To = new List<NotificationAddress>()
+                    {new NotificationAddress(model.Email, $"{model.FirstName} {model.LastName}")},
 
                 //Body should be null so you can use template
                 //Body = model.Body,
@@ -73,7 +84,7 @@ namespace WebNotifier.Controllers
                 //You can send object you want available in template design
                 Data = new Dictionary<string, object>
                 {
-                    { "form", model}
+                    {"form", model}
                 }
             };
 
@@ -85,31 +96,17 @@ namespace WebNotifier.Controllers
         }
 
 
-        private NotificationMessage ComplexMessage()
+        private  NotificationMessage SubjectedNotification()
         {
-            //UseNotificationMerge
-
-            var notificationSubjects = new List<NotificationSubject>
-            {
-                new ("Request Assignment")
-                {
-                    PersonalizedEachRecipient = true,
-                    NotificationMethod = NotificationMethod.External,
-                    TemplateKey = "submited-template.t5",
-                    Recipients = new List<RecipientInfo>
-                    {
-                        new ("alcaab@gmail.com", "Alexis Castro"),
-                        new ("a.castro@mopc.gob.do", "Alexis Castro")
-                    }
-                }
-            };
 
             var msg = new NotificationMessage
             {
                 Subjects = new List<NotificationSubject>
                 {
+    
                     new("Request Received")
                     {
+                        NotificationMethod = NotificationMethod.External,
                         PersonalizedEachRecipient = true,
                         TemplateKey = "submited-template.t5",
                         Recipients = new List<RecipientInfo>
@@ -120,7 +117,7 @@ namespace WebNotifier.Controllers
                     },
                     new("Request Assignment")
                     {
-                        NotificationMethod = NotificationMethod.External,
+                        NotificationMethod = NotificationMethod.Internal,
                         TemplateKey = "assigned-template.t5",
                         Recipients = new List<RecipientInfo>
                         {
@@ -130,20 +127,9 @@ namespace WebNotifier.Controllers
                 }
             };
 
-            //msg.To.AddRange(new List<NotificationAddress>
-            //{
-            //    new()
-            //    {
-            //        Address = "alcaab@gmail.com",
-            //        DisplayName = "Alexis Castro Abreu",
-            //        //TemplateKey = "submited-template.t5"
-            //    }
-            //});
-
 
             return msg;
-
         }
-
     }
+
 }

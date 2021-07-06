@@ -23,15 +23,17 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton(options.TemplateEngineProvider);
             services.AddSingleton(options.TemplateCompilerProvider);
             services.AddSingleton(options.TemplateContentFactory);
-
-            services.AddSingleton<IMemoryStorageProvider, MemoryProvider>();
+            services.AddSingleton(options.DeliveryStrategy);
             services.AddSingleton(options.WebSocketNotificationFactory);
             services.AddSingleton(options.EventHubFactory);
             services.AddTransient(options.StorageFactory);
             services.AddTransient(options.ExternalNotificationFactory);
+
+            services.AddSingleton<IMemoryStorageProvider, MemoryProvider>();
             services.AddTransient<INotificationProvider, NotificationProvider>();
             services.AddSingleton<IBackgroundTask, NotificationServiceWorker>();
             services.AddSingleton<INotificationHost, NotificationHost>();
+
 
             
             return services;

@@ -38,9 +38,11 @@ namespace Desyco.Notification.Extensions
         /// Deep clone notifications into container
         /// </summary>
         /// <param name="message"></param>
-        /// <param name="container"></param>
-        public static void CopyTo(this PlainMessage message, NotificationContainer container)
+        /// <param name="beforeAdd"></param>
+        public static MessageContainer CreateContainer(this PlainMessage message, Action<NotificationBase> beforeAdd = null)
         {
+
+            var container = new MessageContainer();
 
             foreach (var notification in from subject in message.Subjects from recipient in subject.Recipients select new NotificationBase
             {
@@ -55,6 +57,7 @@ namespace Desyco.Notification.Extensions
                     Name = recipient.Name,
                     UserName = recipient.UserName
                 },
+                Data = message.Data,
                 //Todo:Inherit method logic here
                 NotificationMethod = subject.NotificationMethod,
                 TemplateKey = subject.TemplateKey,
@@ -66,8 +69,11 @@ namespace Desyco.Notification.Extensions
                 UrgencyLevel = UrgencyLevel.Normal,
             })
             {
+                beforeAdd?.Invoke(notification);
                 container.AddNotification(notification);
             }
+
+            return container;
         }
     }
 }
