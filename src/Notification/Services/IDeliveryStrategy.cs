@@ -1,7 +1,9 @@
-﻿namespace Desyco.Notification.Services
+﻿using System.Collections.Generic;
+
+namespace Desyco.Notification.Services
 {
     public interface IDeliveryStrategy
     {
-        MessageContainer GetNotifications(PlainMessage message);     
+        MessageContainer GetNotifications(PlainMessage msg);     
     }
 }

@@ -53,18 +53,11 @@ namespace Desyco.Notification
                 //Get all notifications
                 var container = _deliveryStrategy.GetNotifications(m);
 
-                //envia la notificacion por websocket
                 if (m.NotificationMethod != NotificationMethod.External)
-                    await _internalNotificationProvider.Notify(container.GetNotifications(NotificationMethod.External));
+                    await _internalNotificationProvider.Notify(container[NotificationMethod.Internal]);
 
-                //await _internalNotificationProvider.Notify(m);
-
-                //Enviar mensaje fuera del sistema via email o cualquier otro medio. 
                 if (m.NotificationMethod != NotificationMethod.Internal)
-                    await _externalNotificationProvider.Notify(container.GetNotifications(NotificationMethod.Internal));
-
-                    //await _externalNotificationProvider.Notify(m);
-                    
+                    await _externalNotificationProvider.Notify(container[NotificationMethod.External]);
 
             }
             catch (Exception e)
@@ -78,9 +71,7 @@ namespace Desyco.Notification
                 });
 
             }
-
         }
-
 
         protected virtual bool SupportExternalAttachment()
         {

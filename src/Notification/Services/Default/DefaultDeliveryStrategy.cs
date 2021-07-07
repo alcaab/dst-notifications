@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Desyco.Notification.Extensions;
-using Desyco.Notification.Models;
+using System.Linq;
 
 namespace Desyco.Notification.Services.Default
 {
@@ -15,18 +13,48 @@ namespace Desyco.Notification.Services.Default
             _options = options;
         }
 
-        public MessageContainer GetNotifications(PlainMessage message)
+        public MessageContainer GetNotifications(PlainMessage msg)
         {
+            var notifications = msg.Subjects.SelectMany(subject => subject.Recipients.Select(recipient =>
+                new NotificationBase
+                {
+                    Id = msg.Id ?? Guid.NewGuid().ToString(),
+                    Group = msg.Group,
+                    Status = MessageStatus.Pending,
+                    Recipient = new RecipientInfo
+                    {
+                        //Todo:Inherit method logic here
+                        NotificationMethod = recipient.NotificationMethod,
+                        Address = recipient.Address,
+                        Name = recipient.Name,
+                        UserName = recipient.UserName
+                    },
+                    Data = msg.Data,
+                    //Todo:Inherit method logic here
+                    NotificationMethod = subject.NotificationMethod,
+                    TemplateKey = subject.TemplateKey,
+                    CreatedDate = DateTime.UtcNow,
+                    Subject = subject.Subject,
+                    //Todo: body logic here
+                    Body = subject.Body,
+                    DeliveryAttempts = +msg.DeliveryAttempts,
+                    UrgencyLevel = UrgencyLevel.Normal
+                })).ToList();
 
-            return message.CreateContainer(msg =>
+            return new MessageContainer
             {
-                if (string.IsNullOrEmpty(msg.Id))
-                    msg.Id = Guid.NewGuid().ToString();
-
-                msg.DeliveryAttempts++;
-                msg.Status = MessageStatus.Pending;
-            });
+                {
+                    NotificationMethod.External,
+                    notifications.Where(w => w.NotificationMethod == NotificationMethod.External).ToList()
+                },
+                {
+                    NotificationMethod.Internal,
+                    notifications.Where(w => w.NotificationMethod == NotificationMethod.Internal).ToList()
+                }
+            };
 
         }
+
+
     }
 }

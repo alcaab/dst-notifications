@@ -34,46 +34,46 @@ namespace Desyco.Notification.Extensions
 
         }
 
-        /// <summary>
-        /// Deep clone notifications into container
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="beforeAdd"></param>
-        public static MessageContainer CreateContainer(this PlainMessage message, Action<NotificationBase> beforeAdd = null)
-        {
+        ///// <summary>
+        ///// Deep clone notifications into container
+        ///// </summary>
+        ///// <param name="message"></param>
+        ///// <param name="beforeAdd"></param>
+        //public static MessageContainer CreateContainer(this PlainMessage message, Action<NotificationBase> beforeAdd = null)
+        //{
 
-            var container = new MessageContainer();
+        //    var container = new MessageContainer();
 
-            foreach (var notification in from subject in message.Subjects from recipient in subject.Recipients select new NotificationBase
-            {
-                Id = Guid.NewGuid().ToString(),
-                Group = message.Group,
-                Status = MessageStatus.Pending,
-                Recipient = new RecipientInfo
-                {
-                    //Todo:Inherit method logic here
-                    NotificationMethod = recipient.NotificationMethod,
-                    Address = recipient.Address,
-                    Name = recipient.Name,
-                    UserName = recipient.UserName
-                },
-                Data = message.Data,
-                //Todo:Inherit method logic here
-                NotificationMethod = subject.NotificationMethod,
-                TemplateKey = subject.TemplateKey,
-                CreatedDate = DateTime.UtcNow,
-                Subject = subject.Subject,
-                //Todo: body logic here
-                Body = subject.Body,
-                DeliveryAttempts = 0,
-                UrgencyLevel = UrgencyLevel.Normal,
-            })
-            {
-                beforeAdd?.Invoke(notification);
-                container.AddNotification(notification);
-            }
+        //    foreach (var notification in from subject in message.Subjects from recipient in subject.Recipients select new NotificationBase
+        //    {
+        //        Id = Guid.NewGuid().ToString(),
+        //        Group = message.Group,
+        //        Status = MessageStatus.Pending,
+        //        Recipient = new RecipientInfo
+        //        {
+        //            //Todo:Inherit method logic here
+        //            NotificationMethod = recipient.NotificationMethod,
+        //            Address = recipient.Address,
+        //            Name = recipient.Name,
+        //            UserName = recipient.UserName
+        //        },
+        //        Data = message.Data,
+        //        //Todo:Inherit method logic here
+        //        NotificationMethod = subject.NotificationMethod,
+        //        TemplateKey = subject.TemplateKey,
+        //        CreatedDate = DateTime.UtcNow,
+        //        Subject = subject.Subject,
+        //        //Todo: body logic here
+        //        Body = subject.Body,
+        //        DeliveryAttempts = 0,
+        //        UrgencyLevel = UrgencyLevel.Normal,
+        //    })
+        //    {
+        //        beforeAdd?.Invoke(notification);
+        //        container.AddNotification(notification);
+        //    }
 
-            return container;
-        }
+        //    return container;
+        //}
     }
 }

@@ -26,7 +26,6 @@ namespace Desyco.Notification
             _templateContent = templateContent;
         }
 
-
         public virtual async Task Notify(NotificationMessage m)
         {
             if (m.To.Count == 0)

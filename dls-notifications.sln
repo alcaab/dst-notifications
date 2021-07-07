@@ -35,6 +35,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebNotifier", "src\samples\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Desyco.Notification.DependencyInjection", "src\Notification.DependencyInjection\Desyco.Notification.DependencyInjection.csproj", "{8459E5C6-340E-4560-B86C-0D29BCBF7A3E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{57D902E0-261D-4200-A680-C67EABB0C661}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
